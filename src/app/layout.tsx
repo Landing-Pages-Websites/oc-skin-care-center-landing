@@ -1,55 +1,60 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Archivo, Libre_Baskerville } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const display = Sora({
+const display = Archivo({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-display-active",
   display: "swap",
 });
 
-const body = Inter({
+const accent = Libre_Baskerville({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body-active",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-accent-active",
   display: "swap",
 });
 
-// === MEGA TAG CONFIG === (real QBC values — QBC opted out of Meta, so NO pixelId)
-const SITE_KEY = "5rn5f8eze80jvipf";
-const SITE_ID = "a6d7ae94-3574-4c2a-9642-4385d223e4e7";
-const GTM_ID = "GTM-5PN93D";
+// === MEGA TAG CONFIG === (real OC Skin Care Center values — Meta prospecting, Pixel ON)
+const SITE_KEY = "qvsczupnzvxtza3u";
+const SITE_ID = "b3520734-191d-4e5d-a969-ffe2a3a26a7b";
+const GTM_ID = "GTM-W8CFHS2D";
+const PIXEL_ID = "992122401762482";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://book.ocskincarecenter.com"),
   title:
-    "TireServ ERP — Free Demo for Tire & Automotive Wholesale Distributors | QBC Systems",
+    "OC Skin Care Center — Premium Facials & Injectables in Newport Beach, CA",
   description:
-    "TireServ is the ERP built exclusively for tire & automotive wholesale distributors. POS, inventory, purchasing, AR, AP, GL, and reporting in one cloud system with real-time wholesale integration. Purpose-built over 48 years. Get a free demo.",
+    "Personalized, results-focused facials and medical aesthetics in Newport Beach. Signature and HydroFacials, Botox/Dysport, dermal fillers and PRP/PRF from a team serving Orange County since 2010. Injectable visits begin with a complimentary consultation.",
   openGraph: {
-    title: "TireServ ERP — Built Exclusively for Tire Wholesale Distributors",
+    title:
+      "OC Skin Care Center — Healthy Skin at Every Stage of Life",
     description:
-      "One cloud system for POS, inventory, purchasing, and accounting — with real-time wholesale integration and mobile order entry. Purpose-built over 48 years by QBC Systems.",
-    images: ["/images/hero-warehouse.jpg"],
+      "Premium facials and injectables in Newport Beach, planned around your skin. 5.0 across 191+ Google reviews. Serving Orange County since 2010.",
     type: "website",
   },
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
-  robots: { index: false, follow: false }, // ads LP — not indexed
+  robots: { index: false, follow: false }, // paid-ads LP — not indexed
 };
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
-  const megaTagConfig = `window.MEGA_TAG_CONFIG={siteKey:"${SITE_KEY}",siteId:"${SITE_ID}",gtmId:"${GTM_ID}"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`;
+}): React.ReactElement {
+  // The MEGA optimizer injects BOTH GTM and the Meta Pixel from this config.
+  // Do NOT hand-write a GTM loader or fbq('init') block — that would double-fire.
+  const megaTagConfig = `window.MEGA_TAG_CONFIG={siteKey:"${SITE_KEY}",siteId:"${SITE_ID}",gtmId:"${GTM_ID}",pixelId:"${PIXEL_ID}"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`;
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${accent.variable}`}>
       <head>
         <meta name="mega-site-id" content={SITE_ID} />
         <script
@@ -66,10 +71,7 @@ export default function RootLayout({
       <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased">
         {children}
         {/* CallTrackingMetrics — universal Mega account (never remove) */}
-        <Script
-          src="https://572388.tctm.co/t.js"
-          strategy="afterInteractive"
-        />
+        <Script src="https://572388.tctm.co/t.js" strategy="afterInteractive" />
       </body>
     </html>
   );

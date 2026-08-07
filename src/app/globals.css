@@ -1,29 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  /* QBC Systems / TireServ — brand tokens (from design_system color_roles) */
-  --color-primary: #0057e7;        /* royal blue — primary CTA */
-  --color-primary-hover: #004ac4;
-  --color-primary-active: #003da2;
-  --color-primary-disabled: #99bcf5;
-  --color-navy: #0a2540;           /* secondary — dark bands */
-  --color-navy-deep: #0a1628;      /* deepest text / footer */
-  --color-accent: #15befe;         /* cyan — focus rings, stat callouts */
+  /* OC Skin Care Center — brand tokens (LIGHT theme) */
+  --color-primary: #09bbb5;        /* teal — FILL only, never text */
+  --color-primary-hover: #097471;
+  --color-primary-active: #034644;
+  --color-on-primary: #0a2e2c;     /* near-black label on teal fills (7.4:1) */
+  --color-deep: #097471;           /* headings accents, links, dark band ground */
+  --color-deepest: #034644;
 
   /* Neutrals */
   --color-bg: #ffffff;
-  --color-surface: #f4f7fb;
-  --color-border: #e3e9f2;
-  --color-text: #0a1628;
-  --color-muted: #5b6b82;
-  --color-muted-soft: #6b7280;
+  --color-surface: #f7f7f4;
+  --color-border: #e4e7e6;
+  --color-text: #111111;
+  --color-muted: #5b6360;
 
   /* States */
-  --color-error: #d92d20;
-  --color-success: #12805c;
+  --color-error: #b3261e;
 
-  --font-display: var(--font-display-active), "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-body-active), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-active), "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-accent-active), "Libre Baskerville", Georgia, serif;
 }
 
 :root {
@@ -33,84 +30,176 @@
 html, body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 {
+body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+@media (min-width: 768px) {
+  body { font-size: 17px; }
+}
+
+h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
-  color: inherit;
+  color: var(--color-text);
+  font-weight: 300;
+}
+
+.h1 {
+  font-weight: 300;
+  font-size: clamp(34px, 5vw, 58px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.h2 {
+  font-weight: 300;
+  font-size: clamp(28px, 3.4vw, 40px);
   letter-spacing: -0.015em;
-  font-weight: 700;
+  line-height: 1.12;
 }
 
-/* Eyebrow label (FormCard + sections rely on this class) */
+.h3 {
+  font-weight: 500;
+  font-size: clamp(20px, 2.2vw, 24px);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Section eyebrow — Archivo 600, uppercase, wide tracking, deep-teal (4.8:1) */
 .eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-deep);
 }
 
-/* Layered soft CTA shadow — keyed to royal blue */
-.shadow-cta {
-  box-shadow: 0 12px 28px -10px rgba(0, 87, 231, 0.45),
-              0 4px 10px -4px rgba(10, 22, 40, 0.12);
+@media (min-width: 768px) {
+  .eyebrow { font-size: 12px; }
 }
 
-/* Consistent soft card elevation */
+/* Libre Baskerville italic — hero eyebrow, hero subhead, section accent lines ONLY */
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ─── Buttons — square corners (radius ≤ 2px), matching client site ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  padding: 16px 32px;
+  border-radius: 2px;
+  min-height: 52px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  color: #ffffff;
+}
+.btn-primary:active {
+  background: var(--color-primary-active);
+  color: #ffffff;
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-deepest);
+  outline-offset: 2px;
+}
+.btn-primary:disabled {
+  background: var(--color-border);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-deep);
+  color: var(--color-deep);
+}
+.btn-secondary:hover {
+  background: rgba(9, 116, 113, 0.07);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--color-deepest);
+  outline-offset: 2px;
+}
+
+/* On the deep-teal dark band, phone CTA flips to a light outline */
+.btn-secondary-light {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+.btn-secondary-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.btn-secondary-light:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ─── Depth — layered soft shadows ─── */
 .shadow-card {
-  box-shadow: 0 1px 2px rgba(10, 22, 40, 0.04),
-              0 10px 30px -18px rgba(10, 22, 40, 0.28);
+  box-shadow: 0 1px 2px rgba(3, 70, 68, 0.04),
+              0 12px 32px -18px rgba(3, 70, 68, 0.24);
 }
-
 .shadow-card-lg {
-  box-shadow: 0 2px 6px rgba(10, 22, 40, 0.05),
-              0 26px 60px -28px rgba(10, 22, 40, 0.38);
-}
-
-/* Hairline accent divider */
-.hr-accent {
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
-}
-
-/* Subtle grid texture for navy bands */
-.tex-grid {
-  background-image:
-    linear-gradient(rgba(21, 190, 254, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(21, 190, 254, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
+  box-shadow: 0 2px 8px rgba(3, 70, 68, 0.06),
+              0 28px 64px -28px rgba(3, 70, 68, 0.34);
 }
 
 /* Anchor offset so sections land below the fixed header */
-html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-section[id] { scroll-margin-top: 84px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+section[id] { scroll-margin-top: 88px; }
 
-/* ─── Inline per-field validation (HARD RULE #8) — restyled to QBC palette ─── */
+/* ─── Inline per-field validation ─── */
 .lp-input-error {
   border-color: var(--color-error) !important;
-  background-color: #fef3f2 !important;
-  box-shadow: 0 0 0 2px rgba(217, 45, 32, 0.16);
+  background-color: #fef4f3 !important;
+  box-shadow: 0 0 0 2px rgba(179, 38, 30, 0.16);
 }
-
 .lp-input-error:focus {
   border-color: var(--color-error) !important;
-  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.26);
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.26);
   outline: none;
 }
-
 .lp-field-error {
   margin-top: 6px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.35;
   color: var(--color-error);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.01em;
 }
+
+/* ─── Native FAQ accordion (no JS) ─── */
+.faq summary { list-style: none; cursor: pointer; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq .faq-toggle { transition: transform 0.2s ease; }
+.faq details[open] .faq-toggle { transform: rotate(45deg); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

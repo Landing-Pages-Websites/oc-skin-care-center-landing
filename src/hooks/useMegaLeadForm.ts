@@ -146,21 +146,17 @@ export const useMegaLeadForm = (): UseMegaLeadFormReturn => {
 
   const submit = useCallback(
     async (formData: Record<string, unknown>): Promise<SubmissionResponse> => {
-      // Defense-in-depth validation. NANP_RE mirrors the UI rule in
-      // FormCard.tsx: area code & exchange each start 2-9 and may not be N11.
-      const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
+      // Defense-in-depth validation mirroring the UI rules in FormCard.tsx:
+      // phone must be exactly 10 digits; first_name + email are required.
       if (formData.phone) {
         const digits = String(formData.phone).replace(/\D/g, "");
         if (digits.length !== 10) {
           throw new Error("Phone must be exactly 10 digits");
         }
-        if (!NANP_RE.test(digits)) {
-          throw new Error("Phone must be a valid 10-digit US number");
-        }
         formData.phone = digits;
       }
-      if (!formData.firstName || !formData.email) {
-        throw new Error("firstName and email are required");
+      if (!formData.first_name || !formData.email) {
+        throw new Error("first_name and email are required");
       }
 
       const attribution = initAttribution();

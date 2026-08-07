@@ -4,21 +4,24 @@ import { useTracking } from "@/hooks/useTracking";
 import { QueryParamPersistence } from "@/components/QueryParamPersistence";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { PainPoints } from "@/components/PainPoints";
-import { Capabilities } from "@/components/Capabilities";
-import { WhyPurposeBuilt } from "@/components/WhyPurposeBuilt";
-import { ProofBar } from "@/components/ProofBar";
+import { TrustBar } from "@/components/TrustBar";
+import { Facials } from "@/components/Facials";
+import { Injectables } from "@/components/Injectables";
+import { WhyUs } from "@/components/WhyUs";
+import { YourVisit } from "@/components/YourVisit";
+import { Team } from "@/components/Team";
 import { Faq } from "@/components/Faq";
-import { FinalCta } from "@/components/FinalCta";
+import { BookSection } from "@/components/BookSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { TRACKING } from "@/lib/content";
 
-export default function Page() {
+export default function Page(): React.ReactElement {
   useTracking({
     siteKey: TRACKING.siteKey,
     siteId: TRACKING.siteId,
     gtmId: TRACKING.gtmId,
+    pixelId: TRACKING.pixelId,
   });
 
   return (
@@ -26,12 +29,14 @@ export default function Page() {
       <QueryParamPersistence />
       <Header />
       <Hero />
-      <PainPoints />
-      <Capabilities />
-      <WhyPurposeBuilt />
-      <ProofBar />
+      <TrustBar />
+      <Facials />
+      <Injectables />
+      <WhyUs />
+      <YourVisit />
+      <Team />
       <Faq />
-      <FinalCta />
+      <BookSection />
       <SiteFooter />
       <FloatingCTA />
     </main>
