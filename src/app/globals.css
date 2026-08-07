@@ -27,29 +27,31 @@
   color-scheme: light;
 }
 
-html, body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-display);
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+@layer base {
+  html, body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-body {
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--color-muted);
-}
+  body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-muted);
+  }
 
-@media (min-width: 768px) {
-  body { font-size: 17px; }
-}
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+  }
 
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-display);
-  color: var(--color-text);
-  font-weight: 300;
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    color: var(--color-text);
+    font-weight: 300;
+  }
 }
 
 .h1 {
@@ -172,8 +174,10 @@ h1, h2, h3, h4, h5 {
 }
 
 /* Anchor offset so sections land below the fixed header */
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-section[id] { scroll-margin-top: 88px; }
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  section[id] { scroll-margin-top: 88px; }
+}
 
 /* ─── Inline per-field validation ─── */
 .lp-input-error {
